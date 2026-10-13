@@ -1,0 +1,7 @@
+[Unit]
+Description=Relay PostgreSQL backup
+After=postgresql.service
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/relay-backup
+UMask=0077

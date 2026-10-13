@@ -1,0 +1,25 @@
+[Unit]
+Description=Relay QR API
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=relay
+Group=relay
+WorkingDirectory=/opt/relay
+Environment=NODE_ENV=production
+Environment=NODE_OPTIONS=--max-old-space-size=192
+ExecStart=/usr/local/bin/node /opt/relay/server/index.js
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/relay/backups
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

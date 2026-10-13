@@ -1,0 +1,16 @@
+{
+ email {$ACME_EMAIL}
+}
+{$APP_DOMAIN} {
+ encode zstd gzip
+ reverse_proxy web:80
+}
+{$QR_DOMAIN} {
+ @redirect path /r/*
+ handle @redirect {
+  reverse_proxy api:3001
+ }
+ handle {
+  respond "Relay redirect service" 404
+ }
+}
